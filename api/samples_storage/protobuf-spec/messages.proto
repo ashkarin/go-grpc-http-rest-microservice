@@ -1,0 +1,57 @@
+syntax = "proto3";
+package samples.storage.api;
+
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
+
+// A sample that can contain any kind of data.
+message Sample {
+  // The unique identifier for this sample.
+  int64 id = 1;
+
+  // The data contained in this sample. Using the any type future-proofs this
+  // message for not yet defined data messages.
+  google.protobuf.Any data = 2;
+
+  // When this sample was recorded.
+  google.protobuf.Timestamp timestamp = 3;
+}
+
+// A location data message.
+message Location {
+  // The latitude in degrees.
+  double latitude = 1;
+
+  // The longitude in degrees.
+  double longitude = 2;
+}
+
+// An activity data message. Note that the properties of this message are not
+// mutually exclusive. In other words, it is possible for more than one or even
+// none to contain the value true.
+message Activity {
+  // Whether the type of motion is unknown.
+  bool unknown = 1;
+
+  // Whether the device is stationary.
+  bool stationary = 2;
+
+  // Whether the device is on a walking person.
+  bool walking = 3;
+
+  // Whether the device is on a running person.
+  bool running = 4;
+}
+
+// An acceleration data message. Recording acceleration is available only on
+// the Apple Watch, which records at 50Hz.
+message Acceleration {
+  // X-axis acceleration in G's (gravitational force).
+  double x = 1;
+
+  // Y-axis acceleration in G's (gravitational force).
+  double y = 2;
+
+  // Z-axis acceleration in G's (gravitational force).
+  double z = 3;
+}

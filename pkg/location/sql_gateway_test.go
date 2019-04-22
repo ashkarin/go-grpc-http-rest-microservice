@@ -72,7 +72,7 @@ func TestMain(m *testing.M) {
 		if err != nil {
 			log.Fatalf("Could not connect to docker: %s", err)
 		}
-		resource, err = connectMongoDB(pool)
+		resource, err = connectPostgresDB(pool)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -91,7 +91,7 @@ func TestMain(m *testing.M) {
 	os.Exit(code)
 }
 
-func connectMongoDB(pool *dockertest.Pool) (*dockertest.Resource, error) {
+func connectPostgresDB(pool *dockertest.Pool) (*dockertest.Resource, error) {
 	resource, err := pool.Run("postgres", "9.5", nil)
 	if err != nil {
 		return nil, fmt.Errorf("Could not start resource: %s", err)
